@@ -7,15 +7,12 @@ import com.jcraft.jsch.Session;
 import com.jsnjfz.manage.config.SftpConfig;
 import com.jsnjfz.manage.config.properties.GunsProperties;
 import com.jsnjfz.manage.modular.system.service.FileUploadService;
-import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
 
 /**
  * @author wang
