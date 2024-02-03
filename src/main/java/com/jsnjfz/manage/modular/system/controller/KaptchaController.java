@@ -19,6 +19,9 @@ import cn.stylefeng.roses.core.util.FileUtil;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 import com.jsnjfz.manage.config.properties.GunsProperties;
+import com.jsnjfz.manage.core.util.SystemUtil;
+import com.jsnjfz.manage.modular.system.service.FileUploadService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,6 +41,7 @@ import java.io.IOException;
  * @author fengshuonan
  * @date 2017-05-05 23:10
  */
+@Slf4j
 @Controller
 @RequestMapping("/kaptcha")
 public class KaptchaController {
@@ -47,6 +51,8 @@ public class KaptchaController {
 
     @Autowired
     private Producer producer;
+    @Autowired
+    private FileUploadService fileUploadService;
 
     /**
      * 生成验证码
@@ -115,9 +121,15 @@ public class KaptchaController {
     public void renderPicture(@PathVariable("pictureId") String pictureId, HttpServletResponse response) {
         String path = gunsProperties.getFileUploadPath() + pictureId;
         try {
-            byte[] bytes = FileUtil.toByteArray(path);
+            byte[] bytes ;
+            if (SystemUtil.isWindows()){
+                bytes = fileUploadService.read(path);
+            } else {
+                bytes = FileUtil.toByteArray(path);
+            }
             response.getOutputStream().write(bytes);
         } catch (Exception e) {
+            log.error("图片展示异常", e);
             //如果找不到图片就返回一个默认图片
             try {
                 response.sendRedirect("/static/img/github.png");

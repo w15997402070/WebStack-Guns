@@ -41,7 +41,7 @@ public class GunsProperties {
 
     private String fileUploadPath;
 
-    private Boolean haveCreatePath = false;
+    private Boolean haveCreatePath = true;
 
     private Boolean springSessionOpen = false;
 
@@ -61,9 +61,9 @@ public class GunsProperties {
             return getTempPath();
         } else {
             //判断有没有结尾符,没有得加上
-            if (!fileUploadPath.endsWith(File.separator)) {
-                fileUploadPath = fileUploadPath + File.separator;
-            }
+//            if (!fileUploadPath.endsWith(File.separator)) {
+//                fileUploadPath = fileUploadPath + File.separator;
+//            }
             //判断目录存不存在,不存在得加上
             if (!haveCreatePath) {
                 File file = new File(fileUploadPath);

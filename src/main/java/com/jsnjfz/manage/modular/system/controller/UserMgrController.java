@@ -15,8 +15,10 @@
  */
 package com.jsnjfz.manage.modular.system.controller;
 
+import com.jsnjfz.manage.core.util.SystemUtil;
 import com.jsnjfz.manage.modular.system.factory.UserFactory;
 import com.jsnjfz.manage.modular.system.model.User;
+import com.jsnjfz.manage.modular.system.service.FileUploadService;
 import com.jsnjfz.manage.modular.system.service.IUserService;
 import com.jsnjfz.manage.modular.system.warpper.UserWarpper;
 import com.jsnjfz.manage.config.properties.GunsProperties;
@@ -41,6 +43,7 @@ import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -62,6 +65,7 @@ import java.util.UUID;
  * @author fengshuonan
  * @Date 2017年1月11日 下午1:08:17
  */
+@Slf4j
 @Controller
 @RequestMapping("/mgr")
 public class UserMgrController extends BaseController {
@@ -73,6 +77,8 @@ public class UserMgrController extends BaseController {
 
     @Autowired
     private IUserService userService;
+    @Autowired
+    private FileUploadService fileUploadService;
 
     /**
      * 跳转到查看管理员列表的页面
@@ -363,9 +369,15 @@ public class UserMgrController extends BaseController {
 
         String pictureName = UUID.randomUUID().toString() + "." + ToolUtil.getFileSuffix(picture.getOriginalFilename());
         try {
-            String fileSavePath = gunsProperties.getFileUploadPath();
-            picture.transferTo(new File(fileSavePath + pictureName));
+            if (SystemUtil.isWindows()){
+                fileUploadService.upload(picture.getInputStream(), pictureName);
+            } else {
+                String fileSavePath = gunsProperties.getFileUploadPath();
+                picture.transferTo(new File(fileSavePath + pictureName));
+            }
+
         } catch (Exception e) {
+            log.error("图片上传异常", e);
             throw new ServiceException(BizExceptionEnum.UPLOAD_ERROR);
         }
         return pictureName;
