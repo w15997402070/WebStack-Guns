@@ -15,17 +15,17 @@
         from site s left join category c on s.category_id = c.id
         where 1=1
         <if test="title != null and title != ''">
-            and s.title like CONCAT('%',#{title},'%')
+            and (s.title like CONCAT('%',#{title},'%') or c.title  like CONCAT('%',#{title},'%') or s.description  like CONCAT('%',#{title},'%')  )
         </if>
         <if test="offset != null">LIMIT #{offset},#{size}</if>
     </select>
 
     <select id="getTotalCount" resultType="java.lang.Integer" parameterType="map">
         select count(1)
-        from site
+        from site s left join category c on s.category_id = c.id
         where 1=1
         <if test="title != null and title != ''">
-            and title like CONCAT('%',#{title},'%')
+            and (s.title like CONCAT('%',#{title},'%') or c.title  like CONCAT('%',#{title},'%') or s.description  like CONCAT('%',#{title},'%')  )
         </if>
     </select>
 

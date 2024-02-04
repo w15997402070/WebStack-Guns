@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.util.Objects;
 
 /**
  * @author wang
@@ -29,22 +30,7 @@ public class SftpFileUploadServiceImpl implements FileUploadService {
 
     @Override
     public void upload(InputStream inputStream,String fileName) {
-        Session session = JschUtil.openSession(sftpConfig.getHost(), sftpConfig.getPort(),
-                sftpConfig.getUsername(), sftpConfig.getPassword(), 10 * 1000);
-
-        try {
-            boolean connected = session.isConnected();
-            if (!connected){
-                session.connect();
-            }
-            session.openChannel("sftp");
-        } catch (JSchException e) {
-            e.printStackTrace();
-        }
-
-        Sftp sftp = JschUtil.createSftp(session);
-//        Sftp sftp= JschUtil.createSftp(sftpConfig.getHost(), sftpConfig.getPort(),
-//                sftpConfig.getUsername(), sftpConfig.getPassword());
+        Sftp sftp = createSftpSession();
         //进入远程目录
         sftp.cd(gunsProperties.getFileUploadPath());
         //上传本地文件
@@ -53,14 +39,13 @@ public class SftpFileUploadServiceImpl implements FileUploadService {
         sftp.close();
     }
 
-    @Override
-    public byte [] read(String fileName) {
-        Session session = JschUtil.openSession(sftpConfig.getHost(), sftpConfig.getPort(),
+    private Sftp createSftpSession() {
+        Session   session = JschUtil.openSession(sftpConfig.getHost(), sftpConfig.getPort(),
                 sftpConfig.getUsername(), sftpConfig.getPassword(), 10 * 1000);
-
         try {
+
             boolean connected = session.isConnected();
-            if (!connected){
+            if (!connected) {
                 session.connect();
             }
             session.openChannel("sftp");
@@ -68,7 +53,12 @@ public class SftpFileUploadServiceImpl implements FileUploadService {
             e.printStackTrace();
         }
 
-        Sftp sftp = JschUtil.createSftp(session);
+        return JschUtil.createSftp(session);
+    }
+
+    @Override
+    public byte [] read(String fileName) {
+        Sftp sftp = createSftpSession();
         //进入远程目录
         sftp.cd(gunsProperties.getFileUploadPath());
         // 下载文件
