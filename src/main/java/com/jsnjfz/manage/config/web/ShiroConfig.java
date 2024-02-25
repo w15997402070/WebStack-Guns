@@ -182,6 +182,7 @@ public class ShiroConfig {
         hashMap.put("/kaptcha/**", "anon");
         hashMap.put("/gunsApi/**", "anon");
         hashMap.put("/login", "anon");
+        hashMap.put("/wx/*", "anon");
         hashMap.put("/global/sessionError", "anon");
         hashMap.put("/kaptcha", "anon");
         hashMap.put("/", "anon");

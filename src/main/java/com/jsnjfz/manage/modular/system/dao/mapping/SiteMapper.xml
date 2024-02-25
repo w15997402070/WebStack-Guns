@@ -14,9 +14,7 @@
         select s.*,c.title categoryTitle
         from site s left join category c on s.category_id = c.id
         where 1=1
-        <if test="title != null and title != ''">
-            and (s.title like CONCAT('%',#{title},'%') or c.title  like CONCAT('%',#{title},'%') or s.description  like CONCAT('%',#{title},'%')  )
-        </if>
+        <include refid="condition"></include>
         <if test="offset != null">LIMIT #{offset},#{size}</if>
     </select>
 
@@ -24,11 +22,17 @@
         select count(1)
         from site s left join category c on s.category_id = c.id
         where 1=1
+        <include refid="condition"></include>
+    </select>
+
+    <sql id="condition">
         <if test="title != null and title != ''">
             and (s.title like CONCAT('%',#{title},'%') or c.title  like CONCAT('%',#{title},'%') or s.description  like CONCAT('%',#{title},'%')  )
         </if>
-    </select>
-
+        <if test="categoryTitle != null and categoryTitle != ''">
+            and c.title  like CONCAT('%',#{categoryTitle},'%')
+        </if>
+    </sql>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
 		delete from site where id = #{id}
