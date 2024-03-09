@@ -37,18 +37,23 @@ log:
 
 sftp:
   host: 47.99.97.8
-  username: root
-  password: '!@#zxcvbnm123'
+  username: ENC(nwwXRJMTVEcyqwOmqk/Rig==)
+  password: ENC(JK0jAODKzWIQSrbU8s+hICIV461++Squ)
   port: 22
 
+jasypt:
+  encryptor:
+    # 指定解密算法，需要和加密时使用的算法一致
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
 ---
 
 spring:
   profiles: local
   datasource:
     url: jdbc:mysql://47.99.97.8:3306/guns?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=Asia/Shanghai
-    username: mysqlAliyun
-    password: mm7FG6yy)Umo90a*Ed
+    username: ENC(RtATcFe1bZ1znf2/yl2bbjb3sRG/i/JB)
+    password: ENC(4lMH+P4ZNKfYnUKEB5V5OpFQF7210EgRyPRoWsuyjIo=)
     filters: wall,mergeStat
 
 
