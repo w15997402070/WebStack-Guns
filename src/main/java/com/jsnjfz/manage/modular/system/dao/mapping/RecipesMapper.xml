@@ -9,6 +9,7 @@
         <result column="recipe_name" property="recipeName" />
         <result column="cooking_time" property="cookingTime" />
         <result column="cuisine" property="cuisine" />
+        <result column="type" property="type" />
         <result column="ingredients" property="ingredients" />
         <result column="steps" property="steps" />
         <result column="create_time" property="createTime" />
@@ -17,7 +18,22 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, sort, recipe_name, cooking_time, cuisine, ingredients, steps, create_time, update_time
+        id, sort, recipe_name, cooking_time, `type`, cuisine, ingredients, steps, create_time, update_time
     </sql>
+    <sql id="base_select">
+        select
+           <include refid="Base_Column_List"></include>
+        from recipes
+    </sql>
+    <select id="randomQuery" parameterType="java.util.Map" resultMap="BaseResultMap">
+        <foreach collection="map" index="key" item="value" separator="union all">
+            <if test="value != null">
+                (<include refid="base_select"></include>
+                where
+                type = #{key}
+                ORDER BY RAND() LIMIT #{value})
+            </if>
+        </foreach>
+    </select>
 
 </mapper>

@@ -47,13 +47,12 @@ RecipesInfoDlg.collectData = function() {
     this
     .set('id')
     .set('sort')
+    .set('type')
     .set('recipeName')
     .set('cookingTime')
     .set('cuisine')
     .set('ingredients')
-    .set('steps')
-    .set('createTime')
-    .set('updateTime');
+    .set('steps');
 }
 
 /**

@@ -2,15 +2,17 @@ package com.jsnjfz.manage.modular.system.controller;
 
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import com.jsnjfz.manage.core.log.LogObjectHolder;
+import com.jsnjfz.manage.modular.system.controller.request.RandomRecipesRequest;
+import com.jsnjfz.manage.modular.system.dto.RandomRecipesDto;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestParam;
 import com.jsnjfz.manage.modular.system.model.Recipes;
 import com.jsnjfz.manage.modular.system.service.IRecipesService;
+
+import java.time.LocalDateTime;
+import java.util.Map;
 
 /**
  * 菜谱控制器
@@ -100,5 +102,22 @@ public class RecipesController extends BaseController {
     @ResponseBody
     public Object detail(@PathVariable("recipesId") Integer recipesId) {
         return recipesService.selectById(recipesId);
+    }
+
+    /**
+     * 随机菜单页
+     */
+    @RequestMapping(value = "/random")
+    public Object random(Recipes recipes) {
+        return PREFIX + "random.html";
+    }
+
+    /**
+     * 菜单详情
+     */
+    @RequestMapping(value = "/randomDetail")
+    @ResponseBody
+    public Object randomDetail(@RequestBody Map<String,Integer> map) {
+        return recipesService.randomRecipes(map);
     }
 }

@@ -14,15 +14,15 @@ var Recipes = {
 Recipes.initColumn = function () {
     return [
         {field: 'selectItem', radio: true},
-            {title: '', field: 'id', visible: true, align: 'center', valign: 'middle'},
-            {title: '', field: 'sort', visible: true, align: 'center', valign: 'middle'},
+            {title: 'ID', field: 'id', visible: true, align: 'center', valign: 'middle'},
             {title: '菜名', field: 'recipeName', visible: true, align: 'center', valign: 'middle'},
+            {title: '类型', field: 'type', visible: true, align: 'center', valign: 'middle'},
             {title: '所需时间', field: 'cookingTime', visible: true, align: 'center', valign: 'middle'},
             {title: '菜系', field: 'cuisine', visible: true, align: 'center', valign: 'middle'},
             {title: '食材，数量', field: 'ingredients', visible: true, align: 'center', valign: 'middle'},
             {title: '制作该菜谱的详细步骤', field: 'steps', visible: true, align: 'center', valign: 'middle'},
-            {title: '', field: 'createTime', visible: true, align: 'center', valign: 'middle'},
-            {title: '', field: 'updateTime', visible: true, align: 'center', valign: 'middle'}
+            {title: '创建时间', field: 'createTime', visible: true, align: 'center', valign: 'middle'},
+            {title: '修改时间', field: 'updateTime', visible: true, align: 'center', valign: 'middle'}
     ];
 };
 
