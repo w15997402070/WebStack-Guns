@@ -183,6 +183,7 @@ public class ShiroConfig {
         hashMap.put("/gunsApi/**", "anon");
         hashMap.put("/recipes/random", "anon");
         hashMap.put("/recipes/randomDetail", "anon");
+        hashMap.put("/recipes/default", "anon");
         hashMap.put("/login", "anon");
         hashMap.put("/wx/*", "anon");
         hashMap.put("/global/sessionError", "anon");
