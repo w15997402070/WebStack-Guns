@@ -15,6 +15,7 @@ import com.jsnjfz.manage.modular.system.service.IRecipesService;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 菜谱控制器
@@ -125,5 +126,15 @@ public class RecipesController extends BaseController {
     @ResponseBody
     public Object randomDetail(@RequestBody Map<String,Integer> map) {
         return recipesService.randomRecipes(map);
+    }
+
+    /**
+     * 菜单详情
+     */
+    @RequestMapping(value = "/default")
+    @ResponseBody
+    public Object randomDefault() {
+        List<Recipes> recipes = recipesService.randomRecipesDefault();
+        return recipes.stream().map(Recipes::getRecipeName).collect(Collectors.joining("\r"));
     }
 }

@@ -20,6 +20,7 @@ import java.util.Map;
 public interface IRecipesService extends IService<Recipes> {
 
     List<Recipes> randomRecipes(Map<String,Integer> map);
+    List<Recipes> randomRecipesDefault();
 
     List<MapResultDto> getRecipesType();
 

@@ -27,6 +27,16 @@ public class RecipesServiceImpl extends ServiceImpl<RecipesMapper, Recipes> impl
 
     @Autowired
     private RecipesMapper recipesMapper;
+
+    @Override
+    public List<Recipes> randomRecipesDefault() {
+        Map<String,Integer> map = new HashMap<>(4);
+        map.put(RecipesTypeEnum.MEAT.getValue(), 1);
+        map.put(RecipesTypeEnum.VEGETABLES.getValue(), 1);
+        map.put(RecipesTypeEnum.SOUP.getValue(), 1);
+        return randomRecipes(map);
+    }
+
     @Override
     public List<Recipes> randomRecipes(Map<String,Integer> map) {
         Map<String,Integer> paramMap = new HashMap<>();
