@@ -1,6 +1,7 @@
 package com.jsnjfz.manage.modular.system.service.impl;
 
 import com.jsnjfz.manage.core.common.enums.RecipesTypeEnum;
+import com.jsnjfz.manage.modular.system.VO.MapResultDto;
 import com.jsnjfz.manage.modular.system.controller.request.RandomRecipesRequest;
 import com.jsnjfz.manage.modular.system.dto.RandomRecipesDto;
 import com.jsnjfz.manage.modular.system.model.Recipes;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -35,5 +37,16 @@ public class RecipesServiceImpl extends ServiceImpl<RecipesMapper, Recipes> impl
             }
         });
         return recipesMapper.randomQuery(paramMap);
+    }
+
+    @Override
+    public List<MapResultDto> getRecipesType() {
+        return Arrays.stream(RecipesTypeEnum.values())
+                .map(recipesTypeEnum -> {
+                    MapResultDto mapResultDto = new MapResultDto();
+                    mapResultDto.setValue(recipesTypeEnum.getValue());
+                    mapResultDto.setName(recipesTypeEnum.getName());
+                    return mapResultDto;
+                }).collect(Collectors.toList());
     }
 }

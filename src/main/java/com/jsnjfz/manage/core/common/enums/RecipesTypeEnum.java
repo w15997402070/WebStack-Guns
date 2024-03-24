@@ -18,12 +18,13 @@ public enum RecipesTypeEnum {
     COMPLEX_SOUP("complexSoup","复杂汤"),
     ;
     @Getter
-    private String name;
-    @Getter
     private String value;
+    @Getter
+    private String name;
 
-    public static RecipesTypeEnum valueOfName(String name){
-        return Arrays.stream(RecipesTypeEnum.values()).filter(item -> item.getName().equals(name)).findFirst().orElse(null);
+
+    public static RecipesTypeEnum valueOfName(String value){
+        return Arrays.stream(RecipesTypeEnum.values()).filter(item -> item.getValue().equals(value)).findFirst().orElse(null);
     }
 
 }

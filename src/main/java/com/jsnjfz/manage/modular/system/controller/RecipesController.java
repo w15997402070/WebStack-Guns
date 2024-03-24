@@ -2,6 +2,7 @@ package com.jsnjfz.manage.modular.system.controller;
 
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import com.jsnjfz.manage.core.log.LogObjectHolder;
+import com.jsnjfz.manage.modular.system.VO.MapResultDto;
 import com.jsnjfz.manage.modular.system.controller.request.RandomRecipesRequest;
 import com.jsnjfz.manage.modular.system.dto.RandomRecipesDto;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import com.jsnjfz.manage.modular.system.model.Recipes;
 import com.jsnjfz.manage.modular.system.service.IRecipesService;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -41,7 +43,9 @@ public class RecipesController extends BaseController {
      * 跳转到添加菜谱
      */
     @RequestMapping("/recipes_add")
-    public String recipesAdd() {
+    public String recipesAdd(Model model) {
+        List<MapResultDto> recipesTypeList = recipesService.getRecipesType();
+        model.addAttribute("recipesTypeList", recipesTypeList);
         return PREFIX + "recipes_add.html";
     }
 
@@ -50,6 +54,8 @@ public class RecipesController extends BaseController {
      */
     @RequestMapping("/recipes_update/{recipesId}")
     public String recipesUpdate(@PathVariable Integer recipesId, Model model) {
+        List<MapResultDto> recipesTypeList = recipesService.getRecipesType();
+        model.addAttribute("recipesTypeList", recipesTypeList);
         Recipes recipes = recipesService.selectById(recipesId);
         model.addAttribute("item",recipes);
         LogObjectHolder.me().set(recipes);

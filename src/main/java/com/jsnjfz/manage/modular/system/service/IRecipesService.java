@@ -1,5 +1,6 @@
 package com.jsnjfz.manage.modular.system.service;
 
+import com.jsnjfz.manage.modular.system.VO.MapResultDto;
 import com.jsnjfz.manage.modular.system.controller.request.RandomRecipesRequest;
 import com.jsnjfz.manage.modular.system.dto.RandomRecipesDto;
 import com.jsnjfz.manage.modular.system.model.Recipes;
@@ -19,5 +20,7 @@ import java.util.Map;
 public interface IRecipesService extends IService<Recipes> {
 
     List<Recipes> randomRecipes(Map<String,Integer> map);
+
+    List<MapResultDto> getRecipesType();
 
 }

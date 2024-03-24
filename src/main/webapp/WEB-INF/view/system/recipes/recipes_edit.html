@@ -8,11 +8,19 @@
                             <#input id="id" name="ID" value="${item.id}" underline="true"/>
                             <#input id="recipeName" name="菜名" value="${item.recipeName}" underline="true"/>
                             <#input id="cookingTime" name="所需时间" value="${item.cookingTime}" underline="true"/>
-                            <#input id="cuisine" name="菜系" value="${item.cuisine}" />
-                            <#input id="type" name="类型" value="${item.type}" />
+                            <#select id="type" name="类型">
+                                @for(recipesType in recipesTypeList){
+                                      @if(item.type == recipesType.value){
+                                         <option value="${recipesType.value}"  selected="true">${recipesType.name}</option>
+                                      @} else {
+                                        <option value="${recipesType.value}">${recipesType.name}</option>
+                                      @}
+                                @}
+                            </#select>
                 </div>
 
                 <div class="col-sm-6">
+                            <#input id="cuisine" name="菜系" value="${item.cuisine}" />
                             <#input id="ingredients" name="食材，数量" value="${item.ingredients}" underline="true"/>
                             <#input id="steps" name="制作该菜谱的详细步骤" value="${item.steps}" underline="true"/>
                 </div>

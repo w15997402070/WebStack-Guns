@@ -7,11 +7,15 @@
                 <div class="col-sm-6 b-r">
                             <#input id="recipeName" name="菜名" underline="true"/>
                             <#input id="cookingTime" name="所需时间" underline="true"/>
-                            <#input id="cuisine" name="菜系"/>
-                            <#input id="type" name="类型"/>
+                            <#select id="type" name="类型">
+                                @for(recipesType in recipesTypeList){
+                                    <option value="${recipesType.value}">${recipesType.name}</option>
+                                @}
+                            </#select>
                 </div>
 
                 <div class="col-sm-6">
+                            <#input id="cuisine" name="菜系"/>
                             <#input id="ingredients" name="食材，数量" underline="true"/>
                             <#input id="steps" name="制作该菜谱的详细步骤" underline="true"/>
                 </div>

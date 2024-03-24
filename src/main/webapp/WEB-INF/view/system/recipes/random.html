@@ -20,14 +20,18 @@
         display: block;
         width: 200px;
     }
+    .input-group{
+        margin-bottom: 10px;
+        margin-left: 10%;
+    }
     .input-group .form-control {
         position: relative;
         z-index: 2;
         float: none;
         width: 80%;
-        margin-bottom: 10px;
-        margin-left: 5%;
-        margin-right: 5%;
+        margin-bottom: 0px;
+        margin-left: 0;
+        margin-right: 0;
     }
     .btn-random{
         display: block;
@@ -42,22 +46,22 @@
         margin-top: 15px;
     }
     .list-group-item {
-        width: 40%;
+        width: 80%;
         position: relative;
         display: block;
         padding: 10px 15px;
         margin-bottom: -1px;
-        background-color: #fff;
+        /*background-color: #fff;*/
         border: 1px solid #ddd;
         text-align: center;
-        margin-left: 340px;
+        margin-left: 10%;
     }
 
 </style>
 <div class="container">
     <div class="input-container">
         <div class="input-group">
-            <span class="input-group-addon" id="basic-addon1">肉   类：</span>
+            <span class="input-group-addon" id="basic-addon1">肉&nbsp;&nbsp;&nbsp;&nbsp;类：</span>
             <input type="text"name="meat" value="1"  class="form-control input-text" placeholder="" aria-describedby="basic-addon1">
             <span class="input-span-suffix">个</span>
         </div>
@@ -113,7 +117,7 @@
                 var suffixHtml = " </ul>";
                 var resultHtml = "";
                 data.forEach(function (item) {
-                    resultHtml += '<li class="list-group-item">'+item.recipeName+ '</li>';
+                    resultHtml += '<li class="list-group-item list-group-item-info">'+item.recipeName+ '</li>';
                 });
                 $("#recipesData").html(html + resultHtml +suffixHtml);
             }
